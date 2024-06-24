@@ -1,0 +1,5 @@
+---
+collections:
+  - awx.awx
+  - infra.controller_configuration
+  - ansible.controller
