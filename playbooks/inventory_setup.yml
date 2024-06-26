@@ -1,6 +1,7 @@
 ---
 - name: Setup Controller Inventory for Workshop
   hosts: localhost
+  connection: local
   gather_facts: false
 
   tasks:
