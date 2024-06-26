@@ -1,0 +1,30 @@
+---
+- name: Setup Controller Inventory for Workshop
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Create AWS Inventory
+      ansible.controller.inventory_source:
+        name: 'ec2'
+        organization: 'Default'
+        source: 'ec2'
+        inventory: 'Workshop Inventory'
+        credential: 'AWS EC2 Credential'
+        overwrite: true
+        source_vars:
+          hostnames:
+            - tag:Name
+          compose:
+            ansible_host: public_ip_address
+            ansible_user: 'ec2-user'
+          groups:
+            cloud_aws: true
+            os_linux: tags.blueprint.startswith('rhel')
+          keyed_groups:
+            - key: platform
+              prefix: os
+            - key: tags.blueprint
+              prefix: blueprint
+            - key: tags.owner
+              prefix: owner
